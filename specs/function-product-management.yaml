@@ -1,0 +1,53 @@
+include:
+- product_management_pkg/*
+kind: ArchiveUploadSpec
+name: product-management-pkg-yaPi
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: product-management-5360baa7-2fb3-41d8-9234-3c214ff6c285
+spec:
+  deployment:
+    checksum: {}
+  environment:
+    name: python
+    namespace: ""
+  source:
+    checksum: {}
+    type: url
+    url: archive://product-management-pkg-yaPi
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2025-05-09T04:34:49Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: product-management
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 0
+      MinScale: 0
+      SpecializationTimeout: 120
+      TargetCPUPercent: 0
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: python
+    namespace: ""
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    functionName: product_management.main.main
+    packageref:
+      name: product-management-5360baa7-2fb3-41d8-9234-3c214ff6c285
+      namespace: ""
+  requestsPerPod: 1
+  resources: {}
