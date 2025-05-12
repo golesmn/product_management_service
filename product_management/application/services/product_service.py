@@ -10,4 +10,3 @@ class ProductService:
     def create_product(self, product_input: Product):
         product = ProductModel.from_entity(product_input)
         self.product_repo.save(product)
-        

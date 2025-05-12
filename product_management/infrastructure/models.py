@@ -1,5 +1,6 @@
 import uuid
-from sqlalchemy import Column, String, Float
+
+from sqlalchemy import Column, Float, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -15,14 +16,10 @@ class ProductModel(Base):
     id = Column(UUID(as_uuid=True), primary_key=True)
     name = Column(String)
     price = Column(Float)
-    
+
     @staticmethod
     def from_entity(product: Product):
-        return ProductModel(
-            id=product.id,
-            name=product.name,
-            price=product.price
-        )
-    
+        return ProductModel(id=product.id, name=product.name, price=product.price)
+
     def to_entity(self):
         return Product(id=self.id, name=self.name, price=self.price)

@@ -1,4 +1,5 @@
 import uuid
+
 from flask import request
 
 from product_management.application.services.product_service import ProductService
